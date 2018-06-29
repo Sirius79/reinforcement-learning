@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import itertools
 from collections import defaultdict
 
-class Sarsa():
+class QLearning():
 
     def __init__(self, alpha, epsilon, gamma):
         '''
@@ -54,7 +54,7 @@ gamma = 0.8
 episode_num = 5000
 
 env = gym.make('CartPole-v0')
-agent = Sarsa(alpha, epsilon, gamma)
+agent = QLearning(alpha, epsilon, gamma)
 Q,score = agent.play()
 print(np.amax(score))
 
