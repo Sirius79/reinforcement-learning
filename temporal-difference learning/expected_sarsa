@@ -1,0 +1,71 @@
+import gym
+import numpy as np
+import matplotlib.pyplot as plt
+import itertools
+from collections import defaultdict
+
+class Sarsa():
+
+    def __init__(self, alpha, epsilon, gamma):
+        '''
+            alpha: step size (0,1]
+            epsilon: greedy probability small>0
+            gamma: discount factor
+        '''
+        self.alpha = alpha
+        self.epsilon = epsilon
+        self.gamma = gamma
+        self.Q = defaultdict(lambda: np.random.randint(10,size=2))
+
+    def greedy_policy(self, state):
+        '''
+            returns action from state using epsilon greedy policy
+            derived from Q
+        '''
+        action_probs = np.ones(2) * self.epsilon
+        prob = np.random.random()
+        if prob <= self.epsilon:
+            action = np.random.randint(2)
+            action_probs[action] = 1 - self.epsilon
+            return action, action_probs
+        else:
+            #print(np.argmax(self.Q[state]), self.Q[state])
+            action = np.argmax(self.Q[state])
+            action_probs[action] = 1 - self.epsilon
+            return action, action_probs
+
+    def play(self):
+        score = np.zeros(episode_num)
+        for episode in range(episode_num):
+            
+            state = env.reset()
+            
+            for step in itertools.count():
+                action, action_probs = self.greedy_policy(tuple(state))
+                observation, reward, done, info = env.step(action)
+                next_action = np.argmax(self.Q[tuple(observation)])
+                expectation = self.Q[tuple(observation)][0] * action_probs[0] + self.Q[tuple(observation)][1] * action_probs[1]
+                self.Q[tuple(state)][action] += self.alpha * (reward + (self.gamma * expectation) - self.Q[tuple(state)][action])
+
+                state = observation
+
+                if done:
+                    score[episode] = step
+                    break
+        return self.Q,score
+
+alpha = 0.3
+epsilon = 0.25
+gamma = 0.8
+episode_num = 5000
+
+env = gym.make('CartPole-v0')
+agent = Sarsa(alpha, epsilon, gamma)
+Q,score = agent.play()
+print(np.amax(score))
+
+plt.plot(score)
+plt.xlabel("Episodes")
+plt.ylabel("Time steps")
+plt.xlim([1,episode_num])
+plt.show()
