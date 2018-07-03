@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 from matplotlib import colors
 import itertools
 from collections import defaultdict
-import env
+import environment
 
 class Dyna():
 
