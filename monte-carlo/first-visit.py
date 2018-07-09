@@ -32,6 +32,9 @@ class Agent():
 
             if done:
                 break
+                
+        states.pop()
+        
         return states, rewards
             
 
@@ -43,9 +46,8 @@ class Agent():
             G = 0.0
             
             for step in range(len(states)):
-
-                if step != len(states)-1:
-                    G += rewards[step]
+           
+                G += rewards[step]
 
                 if states[step] not in states[0:step]:
                     current_state = self.returns[states[step]]
@@ -54,7 +56,7 @@ class Agent():
 
         return self.V
         
-episode_num = 5
+episode_num = 1000
 
 
 env = gym.make('Blackjack-v0')
