@@ -62,7 +62,7 @@ class Agent():
                         current_state.append(G)
                         self.Q[states[step][action_taken]] = sum(current_state)/len(current_state)
                         
-                    self.policy[states[step][np.argmax(self.Q[states[step]][action_taken])]] = 1
+                    self.policy[states[step]][np.argmax(self.Q[states[step]])] = 1
 
         return self.policy
         
