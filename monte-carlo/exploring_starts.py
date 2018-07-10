@@ -51,7 +51,7 @@ class Agent():
 
                 G += rewards[step]
 
-                if states[step] not in states[0:step]:
+                if states[step] not in states[0:step] and actions[step] not in actions[0:step]:
                     action_taken = actions[step]
                     if action_taken == 0:
                         current_state = self.returns_hit[states[step]]
