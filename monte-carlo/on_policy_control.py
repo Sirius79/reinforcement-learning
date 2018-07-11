@@ -58,11 +58,11 @@ class Agent():
                     if action_taken == 0:
                         current_state = self.returns_hit[states[step]]
                         current_state.append(G)
-                        self.Q[states[step][action_taken]] = sum(current_state)/len(current_state)
+                        self.Q[states[step]][action_taken] = sum(current_state)/len(current_state)
                     else:
                         current_state = self.returns_stick[states[step]]
                         current_state.append(G)
-                        self.Q[states[step][action_taken]] = sum(current_state)/len(current_state)
+                        self.Q[states[step]][action_taken] = sum(current_state)/len(current_state)
 
                     a_star = np.argmax(self.Q[states[step]])
                     
