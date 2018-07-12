@@ -7,6 +7,9 @@ from collections import defaultdict
 class Agent():
 
     def __init__(self):
+        '''
+            First-visit Monte-Carlo preidction for estimating optimal value function
+        '''
         
         self.V = defaultdict(float)
         self.returns = defaultdict(list)
