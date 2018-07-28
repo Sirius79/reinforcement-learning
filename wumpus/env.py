@@ -307,6 +307,7 @@ class Environment(object):
         self.wumpus = 1
         return done
 
+# agent
 class Sarsa():
 
     def __init__(self, alpha, epsilon, gamma):
